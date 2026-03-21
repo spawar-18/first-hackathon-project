@@ -9,37 +9,6 @@ function App() {
   const [proposalText, setProposalText] = useState("");
   const [proposals, setProposals] = useState([]);
 
-  const connectWallet = async () => {
-    if (window.ethereum) {
-      try {
-
-        const provider = new ethers.BrowserProvider(window.ethereum);
-
-        await provider.send("eth_requestAccounts", []);
-
-        const signer = await provider.getSigner();
-
-        const address = await signer.getAddress();
-
-        setWalletAddress(address);
-
-        const contract = new ethers.Contract(
-          contractAddress,
-          contractABI,
-          signer
-        );
-
-        console.log("Contract connected:", contract);
-
-      } catch (error) {
-        console.log(error);
-      }
-
-    } else {
-      alert("Please install MetaMask");
-    }
-  };
-
   /*
   const createProposal = async () => {
     if (!window.ethereum) return;
@@ -93,13 +62,6 @@ function App() {
 
     <h1 className="title">College Community DAO</h1>
 
-    <button className="connectBtn" onClick={connectWallet}>
-      Connect Wallet
-    </button>
-
-    {walletAddress && (
-      <p className="wallet">Connected Wallet: {walletAddress}</p>
-    )}
 
     <br/><br/>
 
